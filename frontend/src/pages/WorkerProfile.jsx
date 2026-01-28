@@ -44,10 +44,10 @@ export default function WorkerProfile() {
         // Count completed jobs for this worker
         const completedJobs = Array.isArray(jobData)
           ? jobData.filter(
-              (j) =>
-                j.worker?._id === id &&
-                j.status === "COMPLETED"
-            ).length
+            (j) =>
+              j.worker?._id === id &&
+              j.status === "COMPLETED"
+          ).length
           : 0;
 
         setWorker(workerData);
@@ -85,11 +85,11 @@ export default function WorkerProfile() {
   const avgRating =
     reviews.length > 0
       ? (
-          reviews.reduce(
-            (sum, r) => sum + r.rating,
-            0
-          ) / reviews.length
-        ).toFixed(1)
+        reviews.reduce(
+          (sum, r) => sum + r.rating,
+          0
+        ) / reviews.length
+      ).toFixed(1)
       : 0;
 
   return (
@@ -202,38 +202,67 @@ export default function WorkerProfile() {
       </div>
 
       {/* REVIEWS */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h2 className="font-semibold text-lg mb-4">
-          Ratings & Reviews
-        </h2>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-xl font-bold text-gray-900">
+            Ratings & Reviews
+            <span className="ml-2 text-sm font-normal text-gray-500">
+              ({reviews.length})
+            </span>
+          </h2>
+        </div>
 
-        {reviews.length === 0 && (
-          <p className="text-gray-500 text-sm">
-            No reviews yet
-          </p>
-        )}
-
-        {reviews.map((r) => (
-          <div
-            key={r._id}
-            className="border-b last:border-none pb-4 mb-4"
-          >
-            <div className="flex justify-between">
-              <p className="font-medium">
-                {r.employer?.name || "Employer"}
-              </p>
-              <div className="text-yellow-500">
-                {"★".repeat(r.rating)}
-              </div>
-            </div>
-
-            {r.comment && (
-              <p className="text-sm text-gray-600 mt-1">
-                {r.comment}
-              </p>
-            )}
+        {reviews.length === 0 ? (
+          <div className="text-center py-12 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+            <p className="text-4xl mb-2">📝</p>
+            <p className="text-gray-500 font-medium">No reviews yet</p>
+            <p className="text-sm text-gray-400">
+              Be the first to hire and rate this worker.
+            </p>
           </div>
-        ))}
+        ) : (
+          <div className="space-y-6">
+            {reviews.map((r) => (
+              <div
+                key={r._id}
+                className="group border-b border-gray-100 last:border-none pb-6 last:pb-0"
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                      {r.employer?.name?.charAt(0).toUpperCase() || "E"}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm">
+                        {r.employer?.name || "Employer"}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {new Date(r.createdAt).toLocaleDateString(undefined, {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center bg-yellow-50 px-2 py-1 rounded-md border border-yellow-100">
+                    <span className="text-yellow-500 text-sm mr-1">★</span>
+                    <span className="font-bold text-gray-700 text-sm">
+                      {r.rating}.0
+                    </span>
+                  </div>
+                </div>
+
+                {r.comment && (
+                  <p className="text-gray-600 text-sm leading-relaxed pl-[3.25rem]">
+                    "{r.comment}"
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* ACTION */}

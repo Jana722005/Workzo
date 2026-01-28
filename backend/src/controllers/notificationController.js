@@ -18,7 +18,7 @@ const getUnreadCount = async (req, res) => {
   try {
     const count = await Notification.countDocuments({
       user: req.user._id,
-      read: false,
+      isRead: false,
     });
 
     res.json({ count });
@@ -31,12 +31,12 @@ const getUnreadCount = async (req, res) => {
 const markAllRead = async (req, res) => {
   try {
     await Notification.updateMany(
-      { user: req.user._id, read: false },
-      { $set: { read: true } }
+      { user: req.user._id, isRead: false },
+      { $set: { isRead: true } }
     );
 
     res.json({ success: true });
-  } catch {
+  } catch(error) {
     res.status(500).json({ message: "Failed to mark read" });
   }
 };

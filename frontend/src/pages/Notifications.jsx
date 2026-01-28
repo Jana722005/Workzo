@@ -47,9 +47,8 @@ export default function Notifications() {
           <div
             key={n._id}
             onClick={() => n.link && navigate(n.link)}
-            className={`p-4 rounded-xl shadow cursor-pointer ${
-              n.read ? "bg-white" : "bg-blue-50"
-            }`}
+            className={`p-4 rounded-xl shadow cursor-pointer ${n.isRead ? "bg-white" : "bg-blue-50"
+              }`}
           >
             <p className="text-sm">{n.message}</p>
           </div>

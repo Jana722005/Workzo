@@ -7,9 +7,9 @@ const JobStatus = require("../models/JobStatus");
 // ============================
 const createReview = async (req, res) => {
   try {
-    const { workerId, rating, comment } = req.body;
+    const { workerId, rating, comment, jobId } = req.body;
 
-    if (!workerId || !rating) {
+    if (!workerId || !rating || !jobId) {
       return res.status(400).json({ message: "Missing data" });
     }
 
@@ -17,6 +17,7 @@ const createReview = async (req, res) => {
     await Review.create({
       employer: req.user._id,
       worker: workerId,
+      job: jobId,
       rating: Number(rating),
       comment,
     });

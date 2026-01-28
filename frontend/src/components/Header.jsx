@@ -32,7 +32,18 @@ export default function Header({ onMenuClick }) {
   useEffect(() => {
     fetchUnreadCount();
     const interval = setInterval(fetchUnreadCount, 15000);
-    return () => clearInterval(interval);
+
+    const handleRead = () => {
+      setUnreadCount(0);
+      // optionally fetchUnreadCount() to be double sure, but 0 is instant feedback
+    };
+
+    window.addEventListener("notifications-read", handleRead);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("notifications-read", handleRead);
+    };
   }, [token]);
 
   // 🔕 When notifications page is opened, refresh count
