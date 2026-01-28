@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfileCompletion } from "../utils/profileCompletion";
+import { API_BASE_URL } from "../services/api";
 
 export default function Profile() {
   const token = localStorage.getItem("token");
@@ -15,7 +16,7 @@ export default function Profile() {
     const fetchProfile = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/users/me",
+          `${API_BASE_URL}/users/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -59,7 +60,7 @@ export default function Profile() {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/users/me",
+        `${API_BASE_URL}/users/me`,
         {
           method: "PUT",
           headers: {
@@ -133,11 +134,10 @@ export default function Profile() {
             </p>
             <div className="w-full bg-gray-200 rounded-full h-3">
               <div
-                className={`h-3 rounded-full ${
-                  percent === 100
+                className={`h-3 rounded-full ${percent === 100
                     ? "bg-green-600"
                     : "bg-blue-600"
-                }`}
+                  }`}
                 style={{ width: `${percent}%` }}
               />
             </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../services/api";
 
 export default function Notifications() {
   const token = localStorage.getItem("token");
@@ -9,7 +10,7 @@ export default function Notifications() {
   useEffect(() => {
     const load = async () => {
       const res = await fetch(
-        "http://localhost:5000/api/notifications",
+        `${API_BASE_URL}/notifications`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -20,7 +21,7 @@ export default function Notifications() {
 
       // ✅ mark all as read
       await fetch(
-        "http://localhost:5000/api/notifications/mark-read",
+        `${API_BASE_URL}/notifications/mark-read`,
         {
           method: "PATCH",
           headers: { Authorization: `Bearer ${token}` },

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { API_BASE_URL } from "../services/api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -54,7 +55,7 @@ export default function Login() {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/auth/resend-verification",
+        `${API_BASE_URL}/auth/resend-verification`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -75,7 +76,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-gray-900 to-black px-4">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl p-8 text-white">
-        
+
         {/* BRAND */}
         <h2 className="text-3xl font-bold text-center tracking-wide text-blue-400">
           WORKZO

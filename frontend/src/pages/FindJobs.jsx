@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../services/api";
 
 export default function FindJobs() {
   const token = localStorage.getItem("token");
@@ -19,7 +20,7 @@ export default function FindJobs() {
 
     const fetchJobs = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/jobs", {
+        const res = await fetch(`${API_BASE_URL}/jobs`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -51,7 +52,7 @@ export default function FindJobs() {
     const fetchApplications = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/applications/my",
+          `${API_BASE_URL}/applications/my`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -83,7 +84,7 @@ export default function FindJobs() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/applications/${selectedJob._id}`,
+        `${API_BASE_URL}/applications/${selectedJob._id}`,
         {
           method: "POST",
           headers: {
@@ -167,17 +168,16 @@ export default function FindJobs() {
               <button
                 disabled={alreadyApplied || isClosed}
                 onClick={() => setSelectedJob(job)}
-                className={`mt-5 px-4 py-2 rounded-lg transition ${
-                  alreadyApplied || isClosed
+                className={`mt-5 px-4 py-2 rounded-lg transition ${alreadyApplied || isClosed
                     ? "bg-gray-300 text-gray-600 cursor-not-allowed"
                     : "bg-blue-600 text-white hover:bg-blue-700"
-                }`}
+                  }`}
               >
                 {isClosed
                   ? "Closed"
                   : alreadyApplied
-                  ? "Applied"
-                  : "Apply"}
+                    ? "Applied"
+                    : "Apply"}
               </button>
             </div>
           );

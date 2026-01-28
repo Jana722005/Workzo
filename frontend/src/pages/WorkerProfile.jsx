@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProfileCompletion } from "../utils/profileCompletion";
+import { API_BASE_URL } from "../services/api";
 
 export default function WorkerProfile() {
   const { id } = useParams();
@@ -17,15 +18,15 @@ export default function WorkerProfile() {
       try {
         const [workerRes, reviewRes, jobRes] = await Promise.all([
           fetch(
-            `http://localhost:5000/api/users/worker/${id}`,
+            `${API_BASE_URL}/users/worker/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
             }
           ),
-          fetch(`http://localhost:5000/api/reviews/${id}`),
-          fetch(`http://localhost:5000/api/job-status`, {
+          fetch(`${API_BASE_URL}/reviews/${id}`),
+          fetch(`${API_BASE_URL}/job-status`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

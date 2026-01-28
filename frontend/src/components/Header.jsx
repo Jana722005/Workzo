@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { API_BASE_URL } from "../services/api";
 
 export default function Header({ onMenuClick }) {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function Header({ onMenuClick }) {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/notifications/unread-count",
+        `${API_BASE_URL}/notifications/unread-count`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

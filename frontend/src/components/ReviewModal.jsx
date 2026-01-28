@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { API_BASE_URL } from "../services/api";
 
 export default function ReviewModal({ workerId, jobId, onClose }) {
   const token = localStorage.getItem("token");
@@ -16,7 +17,7 @@ export default function ReviewModal({ workerId, jobId, onClose }) {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/reviews", {
+      const res = await fetch(`${API_BASE_URL}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
