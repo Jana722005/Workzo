@@ -18,7 +18,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://workzo-nu.vercel.app" // Your Vercel Domain
+      "https://workzo-nu.vercel.app",
+      "https://workzo-ysnh.vercel.app",
     ],
     credentials: true,
   })
